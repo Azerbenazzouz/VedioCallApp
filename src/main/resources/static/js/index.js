@@ -12,7 +12,7 @@ function loadAndDisplayUsers() {
     // Clear any existing content in the userListElement
     userListElement.innerHTML = "Loading...";
     // Retrieve the userList from Local Storage
-    fetch('http://localhost:8080/api/v1/users')
+    fetch('http://localhost:8044/api/v1/users')
         .then((response) => {
             return response.json();
         })
@@ -31,7 +31,7 @@ function displayUsers(userList, userListElement) {
         listItem.innerHTML = `
                 <div>
                     <i class="fa fa-user-circle"></i>
-                    ${user.username} <i class="user-email">(${user.email})</i>
+                    ${user.name} <i class="user-email">(${user.email})</i>
                 </div>
                 <i class="fa fa-lightbulb-o ${user.status === "online" ? "online" : "offline"}"></i>
             `;
@@ -45,7 +45,7 @@ window.addEventListener("load", loadAndDisplayUsers);
 
 
 function handleLogout() {
-    fetch('http://localhost:8080/api/v1/users/logout', {
+    fetch('http://localhost:8044/api/v1/users/logout', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -67,7 +67,7 @@ logoutBtn.addEventListener("click", handleLogout);
 
 function handleNewMeeting() {
     const connectedUser = JSON.parse(localStorage.getItem('connectedUser'));
-    window.open(`videocall.html?username=${connectedUser.username}`, "_blank");
+    window.open(`videocall.html?username=${connectedUser.name}`, "_blank");
 }
 
 // Attach the handleNewMeeting function to the "Create a New Meeting" button
@@ -79,7 +79,7 @@ function handleJoinMeeting() {
     const roomId = document.getElementById("meetingName").value;
     const connectedUser = JSON.parse(localStorage.getItem('connectedUser'));
 
-    const url = `videocall.html?roomID=${roomId}&username=${connectedUser.username}`;
+    const url = `videocall.html?roomID=${roomId}&username=${connectedUser.name}`;
 
     window.open(url, "_blank");
 }

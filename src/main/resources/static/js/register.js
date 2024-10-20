@@ -9,7 +9,7 @@ function handleRegistration(event) {
 
     // Create an object with user information
     const user = {
-        username: username,
+        name: username,
         email: email,
         password: password,
         status: status,
